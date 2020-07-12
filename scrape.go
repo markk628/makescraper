@@ -6,6 +6,12 @@ import (
 	"github.com/gocolly/colly"
 )
 
+type Post struct {
+	Title string
+	Votes string
+	Comments string
+}
+
 // main() contains code adapted from example found in Colly's docs:
 // http://go-colly.org/docs/examples/basic/
 func main() {
@@ -13,11 +19,21 @@ func main() {
 	c := colly.NewCollector()
 
 	// On every a element which has href attribute call callback
-	c.OnHTML("a[href]", func(e *colly.HTMLElement) {
-                link := e.Attr("href")
-
+	c.OnHTML("div._2SdHzo12ISmrC8H86TgSCp._3wqmjmv3tb_k-PROt7qFZe", func(e *colly.HTMLElement) {
 		// Print link
-                fmt.Printf("Link found: %q -> %s\n", e.Text, link)
+        fmt.Printf("Title: %s\n", e.Text)
+	})
+
+	c.OnHTML("div._2mHuuvyV9doV3zwbZPtIPG", func(e *colly.HTMLElement) {
+		fmt.Printf("Username: %s\n", e.Text)
+	})
+
+	c.OnHTML("div._1rZYMD_4xY3gRcSS3p8ODO", func(e *colly.HTMLElement) {
+		fmt.Printf("Votes: %s\n", e.Text)
+	})
+
+	c.OnHTML("a._1UoeAeSRhOKSNdY_h3iS1O._1Hw7tY9pMr-T1F4P1C-xNU._2qww3J5KKzsD7e5DO0BvvU", func(e *colly.HTMLElement) {
+		fmt.Printf("Comments: %s\n", e.Text)
 	})
 
 	// Before making a request print "Visiting ..."
