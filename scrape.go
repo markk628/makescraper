@@ -8,6 +8,7 @@ import (
 
 type Post struct {
 	Title string
+	PostDate string
 	Votes string
 	Comments string
 }
@@ -24,8 +25,8 @@ func main() {
         fmt.Printf("Title: %s\n", e.Text)
 	})
 
-	c.OnHTML("div._2mHuuvyV9doV3zwbZPtIPG", func(e *colly.HTMLElement) {
-		fmt.Printf("Username: %s\n", e.Text)
+	c.OnHTML("a._3jOxDPIQ0KaOWpzvSQo-1s", func(e *colly.HTMLElement) {
+		fmt.Printf("Posted: %s\n", e.Text)
 	})
 
 	c.OnHTML("div._1rZYMD_4xY3gRcSS3p8ODO", func(e *colly.HTMLElement) {
